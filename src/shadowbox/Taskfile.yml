@@ -108,6 +108,7 @@ tasks:
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
           -t '{{.IMAGE_NAME}}' \
           '{{.IMAGE_ROOT}}'
+      - docker tag {{.IMAGE_NAME}} {{.IMAGE_NAME}}:{{.VERSION}}
 
   docker:start:
     desc: Build and run the Outline Server Docker image

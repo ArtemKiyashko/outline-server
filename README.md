@@ -60,13 +60,13 @@ See [Shadowsocks resistance against detection and blocking](docs/shadowsocks.md)
 
 ```sh
 # run build task
-./task shadowbox:docker:build IMAGE_VERSION=v1.10.0-rc5 TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+./task shadowbox:docker:build IMAGE_VERSION={{VERSION}} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
 
 #push image to docker hub
 docker push artemkiyashko/shadowbox
 ```
 
-## Local install
+## Local install (new server)
 
 ```sh
 # set shadowbox image
@@ -77,3 +77,19 @@ curl -sL "https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/sr
 ```
 
 Use `--api-port=nnnn` as a parameter for install script to customize API port
+
+## Local update
+
+Run
+
+```sh
+./task shadowbox:docker:build IMAGE_VERSION={{VERSION}} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+```
+
+This will create image with 2 tags: `latest` and `{{VERSION}}`. Push all these to remote hub:
+
+```sh
+docker push artemkiyashko/shadowbox -a
+```
+
+Watchtower should handle update by fetching new image version.
