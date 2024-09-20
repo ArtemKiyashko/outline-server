@@ -55,3 +55,25 @@ See [Shadowsocks resistance against detection and blocking](docs/shadowsocks.md)
    ```sh
    ./task clean
    ```
+
+## Local build
+
+```sh
+# run build task
+./task shadowbox:docker:build IMAGE_VERSION=v1.10.0-rc5 TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+
+#push image to docker hub
+docker push artemkiyashko/shadowbox
+```
+
+## Local install
+
+```sh
+# set shadowbox image
+export SB_IMAGE="artemkiyashko/shadowbox:latest"
+
+# run install script
+curl -sL "https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh" | sed '/local MACHINE_TYPE/,/fi/{d}' | bash
+```
+
+Use `api-port=nnnn` as a parameter for install script to customize API port
