@@ -73,10 +73,14 @@ docker push artemkiyashko/shadowbox
 export SB_IMAGE="artemkiyashko/shadowbox:latest"
 
 # run install script
-curl -sL "https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh" | sed '/local MACHINE_TYPE/,/fi/{d}' | bash
+sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-apps/refs/heads/master/server_manager/install_scripts/install_server.sh)" install_server.sh \
+  --keys-port=46264 \
+  --api-port=24846
 ```
 
-Use `--api-port=nnnn` as a parameter for install script to customize API port
+Use `--hostname=myserver.com` to customize server host name.
+
+Use another tag instead of `:latest` for another version to install.
 
 ## Local update
 
