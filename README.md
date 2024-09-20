@@ -76,4 +76,4 @@ export SB_IMAGE="artemkiyashko/shadowbox:latest"
 curl -sL "https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh" | sed '/local MACHINE_TYPE/,/fi/{d}' | bash
 ```
 
-Use `api-port=nnnn` as a parameter for install script to customize API port
+Use `--api-port=nnnn` as a parameter for install script to customize API port
