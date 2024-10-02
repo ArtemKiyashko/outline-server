@@ -69,11 +69,13 @@ docker push artemkiyashko/shadowbox
 ## Local install (new server)
 
 ```sh
+# elevate priveldges
+su -
 # set shadowbox image
 export SB_IMAGE="artemkiyashko/shadowbox:latest"
 
 # run install script
-sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-apps/refs/heads/master/server_manager/install_scripts/install_server.sh)" install_server.sh \
+bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-apps/refs/heads/master/server_manager/install_scripts/install_server.sh)" install_server.sh \
   --keys-port=46264 \
   --api-port=24846
 ```
@@ -90,10 +92,11 @@ Run
 ./task shadowbox:docker:build IMAGE_VERSION={{VERSION}} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
 ```
 
-This will create image with 2 tags: `latest` and `{{VERSION}}`. Push all these to remote hub:
+This will create image with 2 tags: `latest` and `{{VERSION}}`. Push these to remote hub:
 
 ```sh
-docker push artemkiyashko/shadowbox -a
+docker push artemkiyashko/shadowbox:{{VERSION}}
+docker push artemkiyashko/shadowbox:latest
 ```
 
 Watchtower should handle update by fetching new image version.
