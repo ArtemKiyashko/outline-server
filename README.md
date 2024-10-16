@@ -92,11 +92,10 @@ Run
 ./task shadowbox:docker:build IMAGE_VERSION={{VERSION}} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
 ```
 
-This will create image with 2 tags: `latest` and `{{VERSION}}`. Push these to remote hub:
+This will create image with 2 tags: `latest` and `{{VERSION}}`. Push particular version to remote hub:
 
 ```sh
 docker push artemkiyashko/shadowbox:{{VERSION}}
-docker push artemkiyashko/shadowbox:latest
 ```
 
 Watchtower should handle update by fetching new image version.
