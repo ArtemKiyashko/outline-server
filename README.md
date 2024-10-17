@@ -1,3 +1,7 @@
+!!! This is arm64 build of outline-server for Raspberry/Orange PI-like systems.
+
+To install on your system check [Local install](#local-install) section
+
 # Outline Server
 
 ![Build and Test](https://github.com/Jigsaw-Code/outline-server/actions/workflows/build_and_test_debug.yml/badge.svg?branch=master) [![Mattermost](https://badgen.net/badge/Mattermost/Outline%20Community/blue)](https://community.internetfreedomfestival.org/community/channels/outline-community) [![Reddit](https://badgen.net/badge/Reddit/r%2Foutlinevpn/orange)](https://www.reddit.com/r/outlinevpn/)
@@ -66,7 +70,7 @@ See [Shadowsocks resistance against detection and blocking](docs/shadowsocks.md)
 docker push artemkiyashko/shadowbox
 ```
 
-## Local install (new server)
+## Local install
 
 ```sh
 # elevate priveldges
