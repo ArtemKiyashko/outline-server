@@ -79,7 +79,7 @@ su -
 export SB_IMAGE="artemkiyashko/shadowbox:latest"
 
 # run install script
-bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-apps/refs/heads/master/server_manager/install_scripts/install_server.sh)" install_server.sh \
+bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-server/refs/heads/master/src/server_manager/install_scripts/install_server.sh)" install_server.sh \
   --keys-port=46264 \
   --api-port=24846
 ```
