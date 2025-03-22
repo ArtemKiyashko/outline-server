@@ -8,6 +8,9 @@ on:
   push:
     tags:
       - v*
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   shadowbox:
@@ -32,10 +35,10 @@ jobs:
           platforms: linux/arm64
     
       - name: Build Docker Image
-        run: ./task shadowbox:docker:buildx IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+        run: ./task shadowbox:docker:buildx IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=${{ env.IMAGE_NAME }}
 
       - name: Push Docker Image version ${{ github.ref_name }}
-        run: docker push ghcr.io/artemkiyashko/shadowbox:${{ github.ref_name }}
+        run: docker push ${{ env.REGISTRY}}/${{ env.IMAGE_NAME}}:${{ github.ref_name }}
 
       - name: Push Docker Image latest
-        run: docker push ghcr.io/artemkiyashko/shadowbox:latest
+        run: docker push ${{ env.REGISTRY}}/${{ env.IMAGE_NAME}}:latest
