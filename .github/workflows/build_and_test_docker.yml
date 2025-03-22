@@ -48,6 +48,9 @@ jobs:
       - name: Install NPM Dependencies
         run: npm ci
 
+      - name: Set env
+        run: echo "DOCKER_DEFAULT_PLATFORM=$DOCKER_DEFAULT_PLATFORM" >> $GITHUB_ENV
+
       - name: Build Docker Image
         run: ./task shadowbox:docker:build IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
 
