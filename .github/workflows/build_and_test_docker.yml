@@ -25,17 +25,24 @@ jobs:
 
       - name: Install NPM Dependencies
         run: npm ci
+    
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
           platforms: linux/arm64
-      
+    
       - name: Build Docker Image
-        run: ./task shadowbox:docker:buildx IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+        run: ./task shadowbox:docker:buildx IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=ArtemKiyashko/shadowbox
 
       - name: Push Docker Image version ${{ github.ref_name }}
-        run: docker push ghcr.io/artemkiyashko/shadowbox:${{ github.ref_name }}
+        run: docker push ghcr.io/ArtemKiyashko/shadowbox:${{ github.ref_name }}
 
       - name: Push Docker Image latest
-        run: docker push ghcr.io/artemkiyashko/shadowbox:latest
+        run: docker push ghcr.io/ArtemKiyashko/shadowbox:latest
