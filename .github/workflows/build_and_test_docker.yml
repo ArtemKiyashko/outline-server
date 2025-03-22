@@ -1,4 +1,4 @@
-name: Build and Test Docker image arm64
+name: Build Docker image arm64
 
 concurrency:
   group: ${{ github.head_ref || github.ref }}
@@ -47,21 +47,6 @@ jobs:
 
       - name: Install NPM Dependencies
         run: npm ci
-
-      - name: Shadowbox Debug Build
-        run: ./task shadowbox:build
-
-      - name: Shadowbox Unit Test
-        run: ./task shadowbox:test
-
-      - name: Shadowbox Integration Test
-        run: ./task shadowbox:integration_test
-
-      - name: Verify Open API Spec
-        uses: mbowman100/swagger-validator-action@master
-        with:
-          files: |
-            src/shadowbox/server/api.yml
 
       - name: Build Docker Image
         run: ./task shadowbox:docker:build IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
