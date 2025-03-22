@@ -107,9 +107,8 @@ tasks:
           --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
           --build-arg VERSION='{{.VERSION}}' \
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
-          -t '{{.IMAGE_NAME}}' \
+          -t '{{.IMAGE_NAME}}:latest' \
           '{{.IMAGE_ROOT}}'
-      - docker tag {{.IMAGE_NAME}} {{.IMAGE_NAME}}:{{.VERSION}}
 
   docker:build:
     desc: Build the Outline Server Docker image
