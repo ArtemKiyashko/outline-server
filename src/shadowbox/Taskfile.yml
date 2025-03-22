@@ -108,7 +108,7 @@ tasks:
       - cp '{{joinPath .TASKFILE_DIR "docker/cmd.sh"}}' '{{.IMAGE_ROOT}}/'
       # Build image with given root
       - |
-        "${DOCKER:-docker}" build --force-rm \
+        "${DOCKER:-docker}" buildx --force-rm \
           --platform {{.DOCKER_TARGET_PLATFORM}} \
           --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
           --build-arg VERSION='{{.VERSION}}' \
