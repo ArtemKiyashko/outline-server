@@ -16,6 +16,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install NPM Dependencies
+        run: npm ci
       
       - name: Build Docker Image
         run: ./task shadowbox:docker:build IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
