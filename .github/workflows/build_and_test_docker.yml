@@ -10,7 +10,7 @@ on:
       - v*
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: artemkiyashko/shadowbox
 
 jobs:
   shadowbox:
