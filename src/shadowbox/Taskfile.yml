@@ -110,6 +110,7 @@ tasks:
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
           -t '{{.IMAGE_NAME}}' \
           '{{.IMAGE_ROOT}}'
+      - docker tag {{.IMAGE_NAME}} {{.IMAGE_NAME}}:{{.VERSION}}
 
   docker:build:
     desc: Build the Outline Server Docker image
