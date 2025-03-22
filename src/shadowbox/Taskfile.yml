@@ -102,7 +102,7 @@ tasks:
       - cp '{{joinPath .TASKFILE_DIR "docker/cmd.sh"}}' '{{.IMAGE_ROOT}}/'
       # Build image with given root
       - |
-        docker buildx --platform linux/arm64 \
+        docker buildx build --platform linux/arm64 \
           --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
           --build-arg VERSION='{{.VERSION}}' \
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
