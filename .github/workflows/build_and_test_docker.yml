@@ -32,7 +32,7 @@ jobs:
           platforms: linux/arm64
       
       - name: Build Docker Image
-        run: ./task shadowbox:docker:build IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
+        run: ./task shadowbox:docker:buildx IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=artemkiyashko/shadowbox
 
       - name: Push Docker Image version ${{ github.ref_name }}
         run: docker push ghcr.io/artemkiyashko/shadowbox:${{ github.ref_name }}
