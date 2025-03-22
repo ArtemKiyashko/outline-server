@@ -103,13 +103,12 @@ tasks:
       # Build image with given root
       - |
         docker buildx build --platform linux/arm64 \
-          --push \
+          --output type=docker \
           --force-rm \
           --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
           --build-arg VERSION='{{.VERSION}}' \
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
-          -t '{{.IMAGE_NAME}}:latest' \
-          -t '{{.IMAGE_NAME}}:{{.VERSION}}' \
+          -t '{{.IMAGE_NAME}}' \
           '{{.IMAGE_ROOT}}'
 
   docker:build:
