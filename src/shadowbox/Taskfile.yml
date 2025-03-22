@@ -85,12 +85,6 @@ tasks:
             "arm64" "node@sha256:b4b7a1dd149c65ee6025956ac065a843b4409a62068bd2b0cbafbb30ca2fab3b"
           ) .TARGET_ARCH
         }}'
-      DOCKER_TARGET_PLATFORM: '{{get
-          (dict
-            "x86_64" "x86_64"
-            "arm64" "linux/arm64"
-          ) .TARGET_ARCH | default .TARGET_ARCH
-        }}'
     env:
       DOCKER_CONTENT_TRUST: '{{.DOCKER_CONTENT_TRUST | default "1"}}'
       # Enable Docker BuildKit (https://docs.docker.com/develop/develop-images/build_enhancements)
@@ -108,8 +102,7 @@ tasks:
       - cp '{{joinPath .TASKFILE_DIR "docker/cmd.sh"}}' '{{.IMAGE_ROOT}}/'
       # Build image with given root
       - |
-        "${DOCKER:-docker}" buildx --force-rm \
-          --platform {{.DOCKER_TARGET_PLATFORM}} \
+        "${DOCKER:-docker}" build --force-rm \
           --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
           --build-arg VERSION='{{.VERSION}}' \
           -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
