@@ -65,6 +65,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          file: ./src/shadowbox/docker/Dockerfile
           context: ./src/shadowbox
           platforms: linux/arm64
           push: true
