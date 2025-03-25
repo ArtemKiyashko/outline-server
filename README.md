@@ -76,7 +76,7 @@ docker push artemkiyashko/shadowbox
 # elevate priveldges
 su -
 # set shadowbox image
-export SB_IMAGE="artemkiyashko/shadowbox:latest"
+export SB_IMAGE="ghcr.io/artemkiyashko/shadowbox:latest"
 
 # run install script
 bash -c "$(wget -qO- https://raw.githubusercontent.com/ArtemKiyashko/outline-server/refs/heads/master/src/server_manager/install_scripts/install_server.sh)" install_server.sh \
@@ -89,6 +89,12 @@ Use `--hostname=myserver.com` to customize server host name.
 Use another tag instead of `:latest` for another version to install.
 
 ## Local update
+
+### Automatic build
+
+Set tag `v*` (e.g. `v1.12.3`) to trigger docker image build on GitHub
+
+### Manual build
 
 Run
 
