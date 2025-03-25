@@ -69,7 +69,7 @@ tasks:
         vars: {OUTPUT_DIR: '{{.RUN_DIR}}'}
       - node '{{joinPath .OUTPUT_BASE .TARGET_OS .TARGET_ARCH "app/main.js"}}'
 
-  docker:buildx:
+  docker:prepare:
     desc: Build the Outline Server Docker image
     vars:
       VERSION: '{{.IMAGE_VERSION | default "dev"}}'
@@ -100,17 +100,6 @@ tasks:
       - mkdir -p '{{joinPath .IMAGE_ROOT "/root/shadowbox/persisted-state"}}'
       # Copy entrypoint command
       - cp '{{joinPath .TASKFILE_DIR "docker/cmd.sh"}}' '{{.IMAGE_ROOT}}/'
-      # Build image with given root
-      - |
-        docker buildx build --platform linux/arm64 \
-          --output type=docker \
-          --force-rm \
-          --build-arg NODE_IMAGE='{{.NODE_IMAGE}}' \
-          --build-arg VERSION='{{.VERSION}}' \
-          -f '{{joinPath .TASKFILE_DIR "docker" "Dockerfile"}}' \
-          -t '{{.IMAGE_NAME}}' \
-          '{{.IMAGE_ROOT}}'
-      - docker tag {{.IMAGE_NAME}} {{.IMAGE_NAME}}:{{.VERSION}}
 
   docker:build:
     desc: Build the Outline Server Docker image
