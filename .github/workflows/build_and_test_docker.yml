@@ -18,6 +18,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: artemkiyashko/shadowbox
   VERSION: ${{ github.ref_name || inputs.version }}
+  TARGET_ARCH: arm64
+  # Newer node images have no valid content trust data.
+  # Pin the image node:16.18.0-alpine3.16 by hash.
+  # See image at https://hub.docker.com/_/node/tags?page=1&name=18.18.0-alpine3.18
   NODE_IMAGE: node@sha256:b4b7a1dd149c65ee6025956ac065a843b4409a62068bd2b0cbafbb30ca2fab3b
 
 jobs:
@@ -37,11 +41,8 @@ jobs:
       - name: Install NPM Dependencies
         run: npm ci
     
-      - name: Build Docker Image
-        run: ./task shadowbox:docker:prepare IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=arm64 IMAGE_NAME=${{ env.IMAGE_NAME }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      - name: Build shadowbox
+        run: ./task shadowbox:docker:prepare IMAGE_VERSION=${{ github.ref_name }} TARGET_ARCH=${{ env.TARGET_ARCH }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -66,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           file: ./src/shadowbox/docker/Dockerfile
-          context: ./src/shadowbox
+          context: ./build/shadowbox/image_root/${{ env.TARGET_ARCH }}/
           platforms: linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}

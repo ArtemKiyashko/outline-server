@@ -70,21 +70,11 @@ tasks:
       - node '{{joinPath .OUTPUT_BASE .TARGET_OS .TARGET_ARCH "app/main.js"}}'
 
   docker:prepare:
-    desc: Build the Outline Server Docker image
+    desc: Build the Outline Server
     vars:
       VERSION: '{{.IMAGE_VERSION | default "dev"}}'
-      IMAGE_NAME: '{{.IMAGE_NAME | default "localhost/outline/shadowbox"}}'
       TARGET_ARCH: '{{.TARGET_ARCH | default "x86_64"}}'
       IMAGE_ROOT: '{{joinPath .OUTPUT_BASE "image_root" .TARGET_ARCH}}'
-      # Newer node images have no valid content trust data.
-      # Pin the image node:16.18.0-alpine3.16 by hash.
-      # See image at https://hub.docker.com/_/node/tags?page=1&name=18.18.0-alpine3.18
-      NODE_IMAGE: '{{get
-          (dict
-            "x86_64" "node@sha256:a0b787b0d53feacfa6d606fb555e0dbfebab30573277f1fe25148b05b66fa097"
-            "arm64" "node@sha256:b4b7a1dd149c65ee6025956ac065a843b4409a62068bd2b0cbafbb30ca2fab3b"
-          ) .TARGET_ARCH
-        }}'
     env:
       DOCKER_CONTENT_TRUST: '{{.DOCKER_CONTENT_TRUST | default "1"}}'
       # Enable Docker BuildKit (https://docs.docker.com/develop/develop-images/build_enhancements)
